@@ -3,9 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 
 
-function GridItem({title, icon, isActive}) {
+function GridItem({title, icon, isActive, onHover, onClick}) {
   return (
-    <div className={'item ' + (isActive ? 'active' : '')}>
+    <div className={'item ' + (isActive ? 'active' : '')} onMouseMove={onHover} onClick={onClick}>
       <div className='icon' style={{backgroundImage: `url(" ${icon} ")`}}/>
       <h3>{title}</h3>
     </div>
@@ -29,6 +29,7 @@ class App extends Component {
       {title: 'Gazelle', icon: 'https://frankvanlangevelde.files.wordpress.com/2014/01/img_9723-e1487795906325.jpg?w=400'},
     ],
     activeItemIndex: 0,
+    activeScreen: 'homescreen',
   };
 
   // componentDidMount вызывается 1 раз когда компонент начинает показываться
@@ -36,10 +37,9 @@ class App extends Component {
     window.addEventListener('keydown', evt => {
       evt.preventDefault(); // отменить станжартное поведение, например чтобы стрелочки не листали саму страницу
 
-      const { activeItemIndex } = this.state;
+      const { activeItemIndex, activeScreen } = this.state;
 
       const bound = (num) => Math.min(Math.max(num, 0), this.state.items.length - 1);
-      console.log(evt)
 
       if (evt.keyCode === 87 || evt.keyCode === 38 ) { //w
         this.setState({ activeItemIndex: bound(activeItemIndex - 4) });
@@ -49,24 +49,45 @@ class App extends Component {
         this.setState({ activeItemIndex: bound(activeItemIndex - 1) });
       } else if (evt.keyCode === 68 || evt.keyCode === 39 ) { //d
         this.setState({ activeItemIndex: bound(activeItemIndex + 1) });
+      } else if (evt.keyCode === 27) { //esc
+        this.setState({ activeScreen: 'homescreen' })
+      } else if (evt.keyCode === 13) { //enter
+        this.setState({ activeScreen: this.state.items[activeItemIndex].title})
       }
     });
   }
 
+  handleHover = (idx) => {
+    this.setState({ activeItemIndex: idx });
+  };
+
+  handleClick = (title) => () => {
+    this.setState({ activeScreen: title })
+    console.log(title)
+  }
 
   render() {
     return (
       <div className='container'>
+        {this.state.activeScreen === 'homescreen' ?
         <div className='grid'>
           {this.state.items.map((item, index) => (
             <GridItem
+              key={item.title}
               title={item.title}
               icon={item.icon}
               isActive={this.state.activeItemIndex === index ? true : false}
+              onHover={() => this.handleHover(index)}
+              onClick={this.handleClick(item.title)}
             />
           ))}
         </div>
-      </div>
+        :
+        <div>
+          <h3>{this.state.activeScreen}</h3>
+        </div>
+      }
+    </div>
     );
   }
 }
