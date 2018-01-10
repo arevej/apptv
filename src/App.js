@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import Calc from './Calc';
+
+
 import './App.css';
 
 
@@ -63,29 +66,31 @@ class App extends Component {
 
   handleClick = (title) => () => {
     this.setState({ activeScreen: title })
-    console.log(title)
   }
 
   render() {
     return (
       <div className='container'>
-        {this.state.activeScreen === 'homescreen' ?
-        <div className='grid'>
-          {this.state.items.map((item, index) => (
-            <GridItem
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-              isActive={this.state.activeItemIndex === index ? true : false}
-              onHover={() => this.handleHover(index)}
-              onClick={this.handleClick(item.title)}
-            />
-          ))}
-        </div>
-        :
-        <div>
-          <h3>{this.state.activeScreen}</h3>
-        </div>
+        {this.state.activeScreen === 'homescreen' ? (
+          <div className='grid'>
+            {this.state.items.map((item, index) => (
+              <GridItem
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+                isActive={this.state.activeItemIndex === index ? true : false}
+                onHover={() => this.handleHover(index)}
+                onClick={this.handleClick(item.title)}
+              />
+            ))}
+          </div>
+        ): this.state.activeScreen === 'Wolforator' ? (
+          <Calc />
+        ): this.state.activeScreen === 'Catymiders' ? (
+          <div>CAT</div>
+        ): (
+          <div>XXX</div>
+        )
       }
     </div>
     );
