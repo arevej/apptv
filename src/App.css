@@ -30,6 +30,7 @@ body {
   border-radius: 7px;
   border: 2.5px solid transparent;
   transition: 0.3s all;
+  cursor: pointer;
 }
 
 .item.active {
@@ -47,4 +48,16 @@ body {
   background-position: center;
   background-size: cover;
   border-radius: 3px;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 60px;
+  color: #ccc;
+  margin-top: 50px;
+  margin-right: 80px;
+  cursor: pointer;
+  padding: 0 25px;
 }

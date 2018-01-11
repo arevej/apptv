@@ -15,7 +15,7 @@ function GridItem({title, icon, isActive, onHover, onClick}) {
   )
 }
 
-const NA = <div>XXX</div>;
+const NA = () => <div>XXX</div>;
 
 class App extends Component {
   state = {
@@ -61,6 +61,10 @@ class App extends Component {
     });
   }
 
+  closeApplicaton = () => {
+    this.setState({ activeScreen: 'homescreen' })
+  }
+
   handleHover = (idx) => {
     this.setState({ activeItemIndex: idx });
   };
@@ -86,7 +90,12 @@ class App extends Component {
             ))}
           </div>
         ) : (
-          this.state.items.find(item => item.title === this.state.activeScreen).component
+          <div>
+            <div className='close-button' onClick={this.closeApplicaton}>×</div>
+            <div>
+              {this.state.items.find(item => item.title === this.state.activeScreen).component}
+            </div>
+          </div>
         )
       }
     </div>
