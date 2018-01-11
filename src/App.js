@@ -34,7 +34,7 @@ class App extends Component {
       {title: 'Gazelle', component: <NA />, icon: 'https://frankvanlangevelde.files.wordpress.com/2014/01/img_9723-e1487795906325.jpg?w=400'},
     ],
     activeItemIndex: 0,
-    activeScreen: 'Catymiders',
+    activeScreen: 'homescreen',
   };
 
   // componentDidMount вызывается 1 раз когда компонент начинает показываться

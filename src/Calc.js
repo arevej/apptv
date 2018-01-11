@@ -41,6 +41,10 @@ class Calc extends Component {
         selectNum: null,
         sum: newSum,
       });
+    } else {
+      this.setState({
+        selectAction: sign,
+      })
     }
   }
 
