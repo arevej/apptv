@@ -53,13 +53,15 @@ input {
   border: 2px solid rgba(0, 1180, 194, 0.55);
   border-radius: 10px;
   margin: 0 15px;
+  transition: 0.2s all;
 }
 
 .checkbox-circle.isCompleted {
   background: rgba(0, 1180, 194, 0.55);
-  color: #fff;
 }
 
 .text.isCompleted {
   text-decoration: line-through;
+  color: #666;
+
 }
