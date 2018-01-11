@@ -1,0 +1,65 @@
+.reminders {
+  color: #aaa;
+  width: 350px;
+  margin: 0 auto;
+  margin-top: 200px;
+}
+
+.add-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add-button {
+  font-size: 37px;
+  background: #222;
+  padding: 0 12px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  border: none;
+  color: #aaa;
+}
+
+input {
+  background: #222;
+  border: none;
+  color: #aaa;
+  font-size: 25px;
+  padding: 10px 20px;
+  display: flex;
+}
+
+.list {
+  margin-top: 20px;
+  font-size: 25px;
+}
+
+.string {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 0;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-circle {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(0, 1180, 194, 0.55);
+  border-radius: 10px;
+  margin: 0 15px;
+}
+
+.checkbox-circle.isCompleted {
+  background: rgba(0, 1180, 194, 0.55);
+  color: #fff;
+}
+
+.text.isCompleted {
+  text-decoration: line-through;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Calc from './Calc';
+import Reminders from './Reminders';
 
 
 import './App.css';
@@ -27,36 +28,41 @@ class App extends Component {
       {title: 'Wolforator', component: <Calc />, icon: 'https://static.howstuffworks.com/gif/grey-wolf-pups.jpg'},
       {title: 'Puppy', component: <NA />, icon: 'http://img.timesnownews.com/story/1511485704-puppy.JPG?d=400x300'},
       {title: 'Squirrel', component: <NA />, icon: 'https://i.pinimg.com/originals/81/d9/ed/81d9ed4192f789db752c0a9ee7430dd9.jpg'},
-      {title: 'Catymiders', component: <div>CAT</div>, icon: 'https://scottoline.com/wp-content/uploads/photo-gallery/animal3.jpg'},
+      {title: 'Catymiders', component: <Reminders />, icon: 'https://scottoline.com/wp-content/uploads/photo-gallery/animal3.jpg'},
       {title: 'Rabbit', component: <NA />, icon: 'https://www.hpcimedia.com/images/website/ManChemNews/DIR_55/F_37485.jpg'},
       {title: 'Cow', component: <NA />, icon: 'http://www.efeedlink.com/cps/images/2017/october/2017100615251759975105.gif'},
       {title: 'Gazelle', component: <NA />, icon: 'https://frankvanlangevelde.files.wordpress.com/2014/01/img_9723-e1487795906325.jpg?w=400'},
     ],
     activeItemIndex: 0,
-    activeScreen: 'homescreen',
+    activeScreen: 'Catymiders',
   };
 
   // componentDidMount вызывается 1 раз когда компонент начинает показываться
   componentDidMount() {
     window.addEventListener('keydown', evt => {
-      evt.preventDefault(); // отменить станжартное поведение, например чтобы стрелочки не листали саму страницу
+      if (this.state.activeScreen === 'homescreen') {
+        evt.preventDefault(); // отменить станжартное поведение, например чтобы стрелочки не листали саму страницу
 
-      const { activeItemIndex, activeScreen } = this.state;
+        const { activeItemIndex, activeScreen } = this.state;
 
-      const bound = (num) => Math.min(Math.max(num, 0), this.state.items.length - 1);
+        const bound = (num) => Math.min(Math.max(num, 0), this.state.items.length - 1);
 
-      if (evt.keyCode === 87 || evt.keyCode === 38 ) { //w
-        this.setState({ activeItemIndex: bound(activeItemIndex - 4) });
-      } else if (evt.keyCode === 83 || evt.keyCode === 40 ) { //s
-        this.setState({ activeItemIndex: bound(activeItemIndex + 4) });
-      } else if (evt.keyCode === 65 || evt.keyCode === 37 ) { //a
-        this.setState({ activeItemIndex: bound(activeItemIndex - 1) });
-      } else if (evt.keyCode === 68 || evt.keyCode === 39 ) { //d
-        this.setState({ activeItemIndex: bound(activeItemIndex + 1) });
-      } else if (evt.keyCode === 27) { //esc
-        this.setState({ activeScreen: 'homescreen' })
-      } else if (evt.keyCode === 13) { //enter
-        this.setState({ activeScreen: this.state.items[activeItemIndex].title})
+        if (evt.keyCode === 87 || evt.keyCode === 38 ) { //w
+          this.setState({ activeItemIndex: bound(activeItemIndex - 4) });
+        } else if (evt.keyCode === 83 || evt.keyCode === 40 ) { //s
+          this.setState({ activeItemIndex: bound(activeItemIndex + 4) });
+        } else if (evt.keyCode === 65 || evt.keyCode === 37 ) { //a
+          this.setState({ activeItemIndex: bound(activeItemIndex - 1) });
+        } else if (evt.keyCode === 68 || evt.keyCode === 39 ) { //d
+          this.setState({ activeItemIndex: bound(activeItemIndex + 1) });
+        } else if (evt.keyCode === 13) { //enter
+          this.setState({ activeScreen: this.state.items[activeItemIndex].title})
+        }
+      } else {
+        if (evt.keyCode === 27) { //esc
+          evt.preventDefault();
+          this.setState({ activeScreen: 'homescreen' });
+        }
       }
     });
   }
@@ -91,7 +97,10 @@ class App extends Component {
           </div>
         ) : (
           <div>
-            <div className='close-button' onClick={this.closeApplicaton}>×</div>
+            <div className='header' onClick={this.closeApplicaton}>
+              <h3 className='title'>{this.state.activeScreen}</h3>
+              <span className='close-button'>×</span>
+            </div>
             <div>
               {this.state.items.find(item => item.title === this.state.activeScreen).component}
             </div>

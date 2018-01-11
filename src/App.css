@@ -50,14 +50,25 @@ body {
   border-radius: 3px;
 }
 
-.close-button {
+.header {
   position: absolute;
   top: 0;
   right: 0;
+  left: 0;
   font-size: 60px;
   color: #ccc;
   margin-top: 50px;
-  margin-right: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.header > .title {
+  margin: 0;
+}
+
+.header > .close-button {
   cursor: pointer;
   padding: 0 25px;
+  margin: 10px;
 }
